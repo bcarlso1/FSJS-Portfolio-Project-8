@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Book = require('../models').book;
+const Book = require('../models').Book;
 const pug = require('pug');
 
 function asyncHandler(cb){
@@ -14,10 +14,10 @@ function asyncHandler(cb){
 }
 
 /* GET list of books */
-router.get('/', function(req, res, next) {
+router.get('/',  asyncHandler(async (req, res) => {
   // res.send('respond with a resource');
   res.render('index', { books: {}, title: 'All Books' });
-});
+}));
 
 /* create new book */
 router.get('/new', (req, res) => {
@@ -27,7 +27,7 @@ router.get('/new', (req, res) => {
 /* Post create new book*/
 router.post('/', asyncHandler(async (req, res) => {
   const book = await Book.create(req.body);
-  res.redirect("/books/" + article.id);
+  res.redirect("/books/" + book.id);
 }))
 
 

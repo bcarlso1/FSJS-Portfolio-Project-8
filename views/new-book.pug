@@ -3,10 +3,10 @@ extends layout
 block content
   h3= title
   div
-    form(action="/books/", method="post")
+    form(action="/", method="post")
         div
           label(for="title") Title  
-          input(type="text", name="title" value=book.title)
+          input(type="text", name="title", value=book.title)
         //- value=book.title
    
         div
