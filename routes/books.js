@@ -27,16 +27,26 @@ router.get('/new', (req, res) => {
 /* POST create new book*/
 router.post('/', asyncHandler(async (req, res) => {
   const book = await Book.create(req.body);
-  res.redirect("/books/" + book.id);
+  res.redirect("/books/");
 }));
 
 /* GET an individual book */
 router.get("/:id", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id)
-  res.render("books/show-book", { book: book, title: article.title});
+  res.render("books/show-book", { book, title: book.title});
 }));
 
+/* Update a book */
+router.post('/:id', asyncHandler(async (req, res) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.update(req.body);
+  res.redirect("/books");
+}));
 
-
+/* Delete Book */
+router.get(":id/delete", asyncHandler(async (req, res) => {
+  const article = await article.findByPk(req.params.id);
+  res.redirect("/books")
+}))
 
 module.exports = router;

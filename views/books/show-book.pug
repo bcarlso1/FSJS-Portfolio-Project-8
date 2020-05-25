@@ -2,4 +2,23 @@ extends ../layout
 
 block content
     h2= title
-    h3= book.title
+    h3 Update Book
+    form(action="/books/" + book.id, method="post")
+
+      div
+        label(for="title") Title  
+        input(type="text", name="title" value=book.title)  
+      div
+        label(for="author") Author
+        input(type="text", name="author" value=book.author)
+      div
+        label(for="genre") Genre
+        input(type="text", name="genre" value=book.genre)
+      div
+        label(for="year") Year
+        input(type="number", name="year" value=book.year)
+      div  
+        input(type="submit" value="Update") 
+
+    form(action="/books/" + book.id + "delete")    
+        input(type="")
