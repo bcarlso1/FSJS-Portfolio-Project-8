@@ -7,16 +7,19 @@ module.exports = (sequelize) => {
     Book.init({
         title: {
             type: Sequelize.STRING,
+            allowNull: false,
             validate: {
-                allowNull: false
+                notEmpty: true
             }
         },
         author: {
             type: Sequelize.STRING,
+            allowNull: false,
             validate: {
-                allowNull: false
+                notEmpty: true
             }
         },
+        genre: Sequelize.STRING,
         year: Sequelize.INTEGER
     }, { sequelize });
 

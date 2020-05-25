@@ -15,20 +15,26 @@ function asyncHandler(cb){
 
 /* GET list of books */
 router.get('/',  asyncHandler(async (req, res) => {
-  // res.send('respond with a resource');
-  res.render('index', { books: {}, title: 'All Books' });
+  const books = await Book.findAll({ order: [["id", "DESC"]]});
+  res.render('books/index', { books, title: 'All Books' });
 }));
 
 /* create new book */
 router.get('/new', (req, res) => {
-  res.render('new-book', { books: {}, title: 'New Book'});
+  res.render('books/new-book', { book: {}, title: 'New Book'});
 });
 
-/* Post create new book*/
+/* POST create new book*/
 router.post('/', asyncHandler(async (req, res) => {
   const book = await Book.create(req.body);
   res.redirect("/books/" + book.id);
-}))
+}));
+
+/* GET an individual book */
+router.get("/:id", asyncHandler(async (req, res) => {
+  const book = await Book.findByPk(req.params.id)
+  res.render("books/show-book", { book: book, title: article.title});
+}));
 
 
 
