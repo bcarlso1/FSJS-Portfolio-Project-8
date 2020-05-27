@@ -2,21 +2,28 @@ extends ../layout
 
 block content
   h3= title
+
+  include errors
+
   div
     form(action="/books", method="post")
 
       div
         label(for="title") Title  
-        input(type="text", name="title" value=book.title)  
+        input(type="text", name="title", id="title", value=book.title)  
+        p
       div
         label(for="author") Author
-        input(type="text", name="author" value=book.author)
+        input(type="text", name="author", id="author", value=book.author)
+        p
       div
         label(for="genre") Genre
-        input(type="text", name="genre" value=book.genre)
+        input(type="text", name="genre", id="genre", value=book.genre)
+        p
       div
         label(for="year") Year
-        input(type="number", name="year" value=book.year)
-      div  
+        input(type="number", name="year", id="year", value=book.year)
+        p
+      div
         input(type="submit")
 

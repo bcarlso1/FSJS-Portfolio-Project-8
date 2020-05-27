@@ -3,22 +3,35 @@ extends ../layout
 block content
     h2= title
     h3 Update Book
+
+    include errors
+
     form(action="/books/" + book.id, method="post")
 
       div
-        label(for="title") Title  
-        input(type="text", name="title" value=book.title)  
+        p
+          label(for="title") Title  
+          input(type="text", name="title" id="title" value=book.title)  
+        
       div
-        label(for="author") Author
-        input(type="text", name="author" value=book.author)
+        p
+          label(for="author") Author
+          input(type="text", name="author" id="author" value=book.author)
       div
-        label(for="genre") Genre
-        input(type="text", name="genre" value=book.genre)
+        p
+          label(for="genre") Genre
+          input(type="text", name="genre" id="genre" value=book.genre)
       div
-        label(for="year") Year
-        input(type="number", name="year" value=book.year)
+        p
+          label(for="year") Year
+          input(type="number", name="year" id="year" value=book.year)
       div  
-        input(type="submit" value="Update") 
-
-    form(action="/books/" + book.id + "delete")    
-        input(type="")
+        
+      input(type="submit" value="Update") 
+    div
+      p 
+        a(href="../books") Cancel
+    div
+      button 
+        a(href="/books/" + book.id + "/delete") Delete Book
+   

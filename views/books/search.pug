@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+    h2 Search Results
+    h3= searchNow
+
+    table
+        thead
+            tr
+                th Title
+                th Author
+                th Genre
+                th Year
+        tbody
+        each book in books
+            if(book.author.toLowerCase().includes("j.k.") || book.title.toLowerCase().includes("abc") || book.year == 200 || book.genre.toLowerCase().includes("abc")) 
+                tr
+                    td
+                        a(href="/books/" + book.id)= book.title
+                    td
+                        =book.author
+                    td
+                        =book.genre
+                    td
+                        =book.year

@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+    h2 Confirm Delete 
+    h2= title
+    form(action="/books/" + book.id + "/delete", method="post")    
+        input(type="submit" )

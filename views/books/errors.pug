@@ -1,0 +1,8 @@
+if(errors) 
+    h2 Uh-oh there was an error!
+        ul.errors
+            each error in errors
+                if (error.message == "Validation notEmpty on title failed")
+                    li  Title is required
+                if (error.message == "Validation notEmpty on author failed") 
+                    li Author is required
