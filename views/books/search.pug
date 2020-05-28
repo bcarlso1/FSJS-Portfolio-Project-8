@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-    h2 Search Results
-    h3= searchNow
+    h2 Search Results for:
+    h3= search
 
     table
         thead
@@ -13,7 +13,7 @@ block content
                 th Year
         tbody
         each book in books
-            if(book.author.toLowerCase().includes("j.k.") || book.title.toLowerCase().includes("abc") || book.year == 200 || book.genre.toLowerCase().includes("abc")) 
+            if(book.author.toLowerCase().includes(search) || book.title.toLowerCase().includes(search) || book.year == search || book.genre.toLowerCase().includes(search)) 
                 tr
                     td
                         a(href="/books/" + book.id)= book.title
@@ -23,3 +23,6 @@ block content
                         =book.genre
                     td
                         =book.year
+
+        h4 
+            a(href="/books/") Home

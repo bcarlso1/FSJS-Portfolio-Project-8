@@ -2,8 +2,8 @@ extends ../layout
 
 block content
   div
-    form(method="get" action="/books/search")
-      input(type="text" name="searchNow" placeholder="Search for books")
+    form(method="get" action="/books/search/")
+      input(type="text" name="search" placeholder="Search for books")
       input(type="submit" value="Search")
   p 
     a(href= "/books/new" class= "button") Create New Book
@@ -25,3 +25,9 @@ block content
           =book.genre
         td
           =book.year
+  br
+  div  
+    button 
+      a(href="/") Page 1
+    button 
+      a(href="/books/page2") Page 2

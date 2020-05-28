@@ -14,16 +14,29 @@ function asyncHandler(cb){
 }
 
 /* GET list of books */
+// 1st page
 router.get('/',  asyncHandler(async (req, res) => {
-  const books = await Book.findAll({ order: [["id", "DESC"]]});
+  const books = await Book.findAll({  limit: 10 }, { order: [["id", "DESC"]]});
   res.render('books/index', { books, title: 'All Books' });
 }));
 
+router.get('/page2',  asyncHandler(async (req, res) => {
+  const books = await Book.findAll({  offset: 10, limit: 10 }, { order: [["id", "DESC"]]});
+  res.render('books/index', { books, title: 'All Books' });
+}));
+
+// router.get('/page3',  asyncHandler(async (req, res) => {
+//   const books = await Book.findAll({  offset: 20, limit: 10 }, { order: [["id", "DESC"]]});
+//   res.render('books/index', { books, title: 'All Books' });
+// }));
+
 // Search Results
-router.get('/search', asyncHandler(async (req, res) => {
+// router.get('/search/:query', asyncHandler(async (req, res) => {
+router.get('/search/', asyncHandler(async (req, res) => {
+  const url = req.url;
+  const search = url.toLowerCase().substring(16);
   const books = await Book.findAll({ order: [["id", "DESC"]]});
-  // const search = input.value;
-  res.render('books/search', { books, searchNow, title: "Book Title Here"});
+  res.render('books/search', { books, search });
 }));
 
 /* create new book */
@@ -55,7 +68,7 @@ router.get("/:id", asyncHandler(async (req, res) => {
     res.render("books/show-book", { book, title: "Update Book"});
   } else {
     // res.sendStatus(404);
-    res.render('page-not-found');
+    res.render('error');
   }
   
 }));
