@@ -1,8 +1,14 @@
 extends ../layout
 
 block content
+    div
+        form(method="get" action="/books/search/")
+            input(type="text" name="search" placeholder="Search for books")
+            input(type="submit" value="Search")
+    
     h2 Search Results for:
     h3= search
+
 
     table
         thead

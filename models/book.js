@@ -9,7 +9,8 @@ module.exports = (sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
-                notEmpty: true
+                notEmpty: true,
+                // tried variations of { msg: "title required" } but causes errors
             }
         },
         author: {

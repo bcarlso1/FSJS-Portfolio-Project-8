@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const Book = require('../models').Book;
-const pug = require('pug');
 
 function asyncHandler(cb){
   return async(req, res, next) => {
@@ -20,18 +19,15 @@ router.get('/',  asyncHandler(async (req, res) => {
   res.render('books/index', { books, title: 'All Books' });
 }));
 
+// 2nd page
 router.get('/page2',  asyncHandler(async (req, res) => {
   const books = await Book.findAll({  offset: 10, limit: 10 }, { order: [["id", "DESC"]]});
   res.render('books/index', { books, title: 'All Books' });
 }));
 
-// router.get('/page3',  asyncHandler(async (req, res) => {
-//   const books = await Book.findAll({  offset: 20, limit: 10 }, { order: [["id", "DESC"]]});
-//   res.render('books/index', { books, title: 'All Books' });
-// }));
+// future to do- findandcountall https://sequelize.org/master/manual/model-querying-finders.html
 
 // Search Results
-// router.get('/search/:query', asyncHandler(async (req, res) => {
 router.get('/search/', asyncHandler(async (req, res) => {
   const url = req.url;
   const search = url.toLowerCase().substring(16);
@@ -65,9 +61,8 @@ router.post('/', asyncHandler(async (req, res) => {
 router.get("/:id", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id)
   if (book) {
-    res.render("books/show-book", { book, title: "Update Book"});
+    res.render("books/update-book", { book, title: "Update Book"});
   } else {
-    // res.sendStatus(404);
     res.render('error');
   }
   
@@ -77,19 +72,15 @@ router.get("/:id", asyncHandler(async (req, res) => {
 router.post('/:id', asyncHandler(async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
-      if(book) {
       await book.update(req.body);
       res.redirect("/books");
-      } else {
-        res.sendStatus(404);
-      }
+
   } catch(error) {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render("books/show-book", { book, errors: error.errors, title: "Update Book" })
+      res.render("books/update-book", { book, errors: error.errors, title: "Update Book" })
     } else {
-      // res.sendStatus(404);
       res.render('error');
     }
   }
@@ -101,8 +92,7 @@ router.get("/:id/delete", asyncHandler(async (req, res) => {
   if (book) {
     res.render("books/delete", {  book, title: book.title});
   } else {
-    // res.sendStatus(404);
-    res.render('page-not-found');
+    res.render('error');
   }
   }));
 
@@ -113,8 +103,7 @@ router.post("/:id/delete", asyncHandler(async (req, res) => {
     await book.destroy();
     res.redirect("/books");
   } else {
-    // res.sendStatus(404);
-    res.render('page-not-found');
+    res.render('error');
   }
 }));
 

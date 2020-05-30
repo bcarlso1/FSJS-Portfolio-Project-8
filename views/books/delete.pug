@@ -5,3 +5,8 @@ block content
     h2= title
     form(action="/books/" + book.id + "/delete", method="post")    
         input(type="submit" )
+
+    div
+        button 
+            a(href="/books/") Cancel
+
